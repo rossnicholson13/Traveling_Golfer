@@ -4,7 +4,15 @@ body {
 }
 
 #map,
-body,
+body {
+  height: 90%;
+}
 html {
   height: 100%;
+  margin: 25px;
+}
+
+div {
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
