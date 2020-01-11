@@ -36,23 +36,25 @@ var inputField = d3.select("#input-address");
 
 inputField.on("change", function() {
   var input_address = d3.event.target.value;
-  console.log(input_address);
   var address = input_address.split(" ");
   var search_address = "";
   for (x in address) {
     search_address += address[x] + "+";
   }
   search_address = search_address.substring(0, search_address.length - 1)
-  console.log(search_address);
   var g_baseURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${search_address}&key=${G_API_KEY}`;
-  console.log(g_baseURL)
 
   d3.json(g_baseURL, function(data) {
-    console.log(data);
+    var user_lat = data.results[0].geometry.location.lat;
+    var user_lng = data.results[0].geometry.location.lng;
+    console.log(user_lat);
+    console.log(user_lng);
   });
+
+  
+  
+
 });
-
-
 
 // Grab the data with d3
 d3.json(url, function(response) {
