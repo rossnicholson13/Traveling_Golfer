@@ -9,7 +9,7 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
   maxZoom: 18,
   id: "mapbox.streets",
-  accessToken: API_KEY
+  accessToken: M_API_KEY
 }).addTo(myMap);
 
 // Store API query variables
@@ -29,6 +29,30 @@ d3.csv("../../csv_files/course_details_geocoding.csv", function(d) {
 }, function(error, rows) {
   console.log(rows);
 });
+
+// Creating url to Google Maps based on event from user submitting address, pulling user latlng
+var button = d3.select("#enter-address");
+var inputField = d3.select("#input-address");
+
+inputField.on("change", function() {
+  var input_address = d3.event.target.value;
+  console.log(input_address);
+  var address = input_address.split(" ");
+  var search_address = "";
+  for (x in address) {
+    search_address += address[x] + "+";
+  }
+  search_address = search_address.substring(0, search_address.length - 1)
+  console.log(search_address);
+  var g_baseURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${search_address}&key=${G_API_KEY}`;
+  console.log(g_baseURL)
+
+  d3.json(g_baseURL, function(data) {
+    console.log(data);
+  });
+});
+
+
 
 // Grab the data with d3
 d3.json(url, function(response) {
