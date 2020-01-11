@@ -38,7 +38,7 @@ inputField.on("change", function() {
     console.log(user_lat);
     console.log(user_lng);
 
-    map.flyTo({center: [user_lat, user_lng], zoom: 11})
+    map.flyTo({center: [user_lng, user_lat], zoom: 11})
 
   });
 
