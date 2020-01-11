@@ -21,6 +21,15 @@ var limit = "&$limit=10000";
 // Assemble API query URL
 var url = baseURL + date + complaint + limit;
 
+d3.csv("../../csv_files/course_details_geocoding.csv", function(d) {
+  return {
+    lat: d.Latitude,
+    lng: d.Longitude,
+  };
+}, function(error, rows) {
+  console.log(rows);
+});
+
 // Grab the data with d3
 d3.json(url, function(response) {
 
