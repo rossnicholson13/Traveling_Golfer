@@ -1,5 +1,5 @@
 // Creating map object
-mapboxgl.accessToken = M_API_KEY
+mapboxgl.accessToken = "pk.eyJ1IjoiY2FtcGJlbGxwYXR0ZXIiLCJhIjoiY2s0YWlzMHFrMDRlaDNlcnVsNDFkZTFqeiJ9.oimhst2_Ab58xGRdkK3wfw";
 var map = new mapboxgl.Map({
   container: 'map', // container id
   style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
@@ -8,15 +8,20 @@ var map = new mapboxgl.Map({
   });
 
 
+
 d3.csv("../../csv_files/course_details_geocoding.csv", function(d) {
   return {
     lat: d.Latitude,
     lng: d.Longitude,
   };
 }, function(error, rows) {
-  console.log(rows);
+  const values = Object.values(rows)
+  for (const course of values) {
+    var marker = new mapboxgl.Marker()
+    .setLngLat([course.lng,course.lat])
+    .addTo(map);
+  }
 });
-
 
 // Creating url to Google Maps based on event from user submitting address, pulling user latlng
 var button = d3.select("#enter-address");
