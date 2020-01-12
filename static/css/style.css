@@ -5,14 +5,54 @@ body {
 
 #map,
 body {
-  height: 90%;
+  height: 83%;
+  color: white;
 }
 html {
   height: 100%;
   margin: 25px;
 }
 
-div {
+#bg {
+    background: url('sunset.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+h1 {
+  text-align: center;
   margin-top: 25px;
-  margin-bottom: 25px;
+  color: white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  font-style: italic;
+  margin-bottom: 20px;
+  animation-duration: 4s;
+  animation-name: slidein;
+  margin-right: 100px;
+}
+
+@keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%; 
+  }
+
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+#center {
+  margin-left: auto;
+  margin-right: auto
+}
+
+.mymap {
+  margin: 50px;
+  border-style: solid;
+  border-width: 5px;
+  border-color: black;
+  box-shadow: 2px 1px 5px 6px rgba(12, 12, 12, 0.687);
 }

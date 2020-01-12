@@ -21,18 +21,17 @@
     <!-- Marker Cluster JS & CSS 
     <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
-    -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css"> -->
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="static/css/style.css">
 
   </head>
   
-  <body>
+  <body id="bg">
 
     <div>
-      <h1>Welcome to the Traveling Golfer!</h1>
+      <h1>Traveling Golfer!</h1>
     </div>
 
     <div class="container">
@@ -40,7 +39,7 @@
 
         <div class="col-md-4">
           <h3>Select Gender</h3>
-          <select id="selDataset" onchange="getData(this.value)">
+          <select class="center" id="selGender" onchange="getData(this.value)">
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
@@ -49,29 +48,22 @@
         <div class="col-md-4">
           <h3>Enter Handicap</h3>
           <button id="enter-handicap">Submit</button>
-          <input id="input-handicap" type="text">
+          <input placeholder="12" id="input-handicap" type="text">
         </div>
 
         <div class="col-md-4">
-          <h3>Enter Address</h3>
+          <h3>City, State</h3>
           <button id="enter-address">Submit</button>
-          <input id="input-address" type="text">
+          <input placeholder="Sandy Springs, GA" id="input-address" type="text">
         </div>
 
       </div>  
     </div>
+ 
 
-
-    
-    
-    <div>
-        <button id="apply-inputs">Find courses for me!</button>
-    </div>
-    
-
-    <div id="map"></div>
+    <div class="mymap" id="map"></div>
     <script type="text/javascript" src="static/js/config.js"></script>
-    <script type="text/javascript" src="static/js/logic.js"></script>
+    <script defer type="text/javascript" src="static/js/logic.js"></script>
 
   </body>
 </html>

@@ -3,38 +3,27 @@ mapboxgl.accessToken = "pk.eyJ1IjoiY2FtcGJlbGxwYXR0ZXIiLCJhIjoiY2s0YWlzMHFrMDRla
 var map = new mapboxgl.Map({
   container: 'map', // container id
   style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-  center: [-74.5, 40], // starting position [lng, lat]
-  zoom: 9 // starting zoom
+  center: [-96.7, 38.5], // starting position [lng, lat]
+  zoom: 3.5 // starting zoom
   });
-
-
-
-d3.csv("../../csv_files/course_details_geocoding.csv", function(d) {
-  return {
-    lat: d.Latitude,
-    lng: d.Longitude,
-  };
-}, function(error, rows) {
-  const values = Object.values(rows)
-  for (const course of values) {
-    var marker = new mapboxgl.Marker()
-    .setLngLat([course.lng,course.lat])
-    .addTo(map);
-  }
-});
 
 // Creating url to Google Maps based on event from user submitting address, pulling user latlng
 var button = d3.select("#enter-address");
 var inputField = d3.select("#input-address");
 
 inputField.on("change", function() {
+
   var input_address = d3.event.target.value;
+
   var address = input_address.split(" ");
+
   var search_address = "";
   for (x in address) {
     search_address += address[x] + "+";
   }
+
   search_address = search_address.substring(0, search_address.length - 1)
+
   var g_baseURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${search_address}&key=${G_API_KEY}`;
 
   d3.json(g_baseURL, function(data) {
@@ -43,37 +32,36 @@ inputField.on("change", function() {
     console.log(user_lat);
     console.log(user_lng);
 
-    map.flyTo({center: [user_lng, user_lat], zoom: 11})
+    d3.csv("../../csv_files/final_db.csv", function(d) {
+      return {
+        lat: d.Latitude,
+        lng: d.Longitude,
+        name: d.Name,
+      };
+    }, function(error, rows) {
+  
+      var newArray = rows.filter(function (el) {
+        return el.lat <= (user_lat + 0.1) && 
+        el.lat >= (user_lat - 0.2) &&
+        el.lng <= (user_lng + 0.2) &&
+        el.lng >= (user_lng - 0.2)
+      });
 
+      console.log(newArray);
+
+      const values = Object.values(newArray);
+
+      for (const course of values) {
+        var marker = new mapboxgl.Marker()
+        .setLngLat([course.lng,course.lat])
+        .addTo(map);
+      }
+
+    });
+
+    map.flyTo({center: [user_lng, user_lat], zoom: 10})
   });
 
+
+
 });
-
-
-
-// // Grab the data with d3
-// d3.json(url, function(response) {
-
-//   // Create a new marker cluster group
-//   var markers = L.markerClusterGroup();
-
-//   // Loop through data
-//   for (var i = 0; i < response.length; i++) {
-
-//     // Set the data location property to a variable
-//     var location = response[i].location;
-
-//     // Check for location property
-//     if (location) {
-
-//       // Add a new marker to the cluster group and bind a pop-up
-//       markers.addLayer(L.marker([location.coordinates[1], location.coordinates[0]])
-//         .bindPopup(response[i].descriptor));
-//     }
-
-//   }
-
-//   // Add our marker cluster layer to the map
-//   myMap.addLayer(markers);
-
-// });
