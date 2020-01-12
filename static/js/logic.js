@@ -52,8 +52,14 @@ inputField.on("change", function() {
       const values = Object.values(newArray);
 
       for (const course of values) {
+        console.log(course);
+        var popup = new mapboxgl.Popup({ offset: 25 }).setText(
+          course.name
+        );
+
         var marker = new mapboxgl.Marker()
         .setLngLat([course.lng,course.lat])
+        .setPopup(popup)
         .addTo(map);
       }
 
