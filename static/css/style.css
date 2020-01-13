@@ -51,8 +51,15 @@ h1 {
 
 .mymap {
   margin: 50px;
+  color: black;
   border-style: solid;
   border-width: 5px;
   border-color: black;
   box-shadow: 2px 1px 5px 6px rgba(12, 12, 12, 0.687);
 }
+
+.mapboxgl-popup {
+  max-width: 400px;
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  color:black;
+  }
