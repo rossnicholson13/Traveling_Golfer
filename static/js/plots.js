@@ -114,7 +114,3 @@ function buildSecondPlot() {
 }
 
 buildSecondPlot();
-
-
-// Initialize the dashboard
-init();
