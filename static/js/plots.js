@@ -1,60 +1,10 @@
-var apiKey = "Jyrx2sQR5VfAK34mTAdX";
-
-/**
- * Helper function to select stock data
- * Returns an array of values
- * @param {array} rows
- * @param {integer} index
- * index 0 - Date
- * index 1 - Open
- * index 2 - High
- * index 3 - Low
- * index 4 - Close
- * index 5 - Volume
- */
-
-
-function unpack(rows, index) {
-  return rows.map(function(row) {
-    return row[index];
-  });
-}
-
-function getMonthlyData() {
-
-  var queryUrl = `https://www.quandl.com/api/v3/datasets/WIKI/AMZN.json?start_date=2016-10-01&end_date=2017-10-01&collapse=monthly&api_key=${apiKey}`;
-  d3.json(queryUrl).then(function(data) {
-    var dates = unpack(data.dataset.data, 0);
-    var openPrices = unpack(data.dataset.data, 1);
-    var highPrices = unpack(data.dataset.data, 2);
-    var lowPrices = unpack(data.dataset.data, 3);
-    var closingPrices = unpack(data.dataset.data, 4);
-    var volume = unpack(data.dataset.data, 5);
-    buildTable(dates, openPrices, highPrices, lowPrices, closingPrices, volume);
-  });
-}
-
-function buildTable(dates, openPrices, highPrices, lowPrices, closingPrices, volume) {
-  var table = d3.select("#summary-table");
-  var tbody = table.select("tbody");
-  var trow;
-  for (var i = 0; i < 12; i++) {
-    trow = tbody.append("tr");
-    trow.append("td").text(dates[i]);
-    trow.append("td").text(openPrices[i]);
-    trow.append("td").text(highPrices[i]);
-    trow.append("td").text(lowPrices[i]);
-    trow.append("td").text(closingPrices[i]);
-    trow.append("td").text(volume[i]);
-  }
-}
-
 function buildPlot() {
-  
     d3.csv("csv_files/course_ID_final_db.csv").then(function(data) {
-    
+    console.log("Test");
     values = Object.values(data);
+    
     var States = [];
+
     for (const val of values) {
       States.push(val.State);
     }
@@ -84,25 +34,12 @@ function buildPlot() {
     var trace1 = {
       type: "bar",
       name: "Count per State",
+      title: "# of Courses per State",
       x: states_list,
       y: states_count
     };
 
     var data = [trace1];
-    /*
-    var layout = {
-      title: `${stock} closing prices`,
-      xaxis: {
-        range: [startDate, endDate],
-        type: "date"
-      },
-      yaxis: {
-        autorange: true,
-        type: "linear"
-      },
-      showlegend: false
-    };
-    */
     Plotly.newPlot("plot", data);
 
   });
@@ -156,7 +93,7 @@ function buildSecondPlot() {
       x: Object.keys(bogeys_state),
       y: Object.values(bogeys_state),
       mode: 'markers',
-      name: 'Median Bogey Difficulty per state',
+      title: 'Median Bogey Difficulty per state',
       marker: {
         color: 'rgba(156, 165, 196, 0.95)',
         line: {
@@ -170,23 +107,8 @@ function buildSecondPlot() {
 
     var data = [trace1];
 
-    var layout = {
-      xaxis: {
-        autotick: false
-      }
-    };
-
-    Plotly.newPlot('plot2', data),layout;
-      });
+    Plotly.newPlot('plot2', data);
+  });
 }
 
 buildSecondPlot();
-
-// BONUS - Dynamically add the current date to the report header
-var monthNames = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-var today = new Date();
-var date = `${monthNames[today.getMonth()]} ${today.getFullYear().toString().substr(2, 2)}`;
-
-d3.select("#report-date").text(date);

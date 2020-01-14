@@ -10,25 +10,19 @@
   <script src="https://unpkg.com/simple-statistics@5.0.0/dist/simple-statistics.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="static/css/style.css">
+  
+  
   <style>
     body {
-      background-color: unset;
+      background-color: green;
     }
-/* table {
-    border-collapse: collapse;
-    width: 100%;
-} */
-
-th, td {
-    text-align: left;
-    padding: 8px;
-}
-tbody>tr:nth-child(even){background-color: #f2f2f2 !important}
-tbody>tr:nth-child(odd){background-color: #fff !important}
-/* th {
-  background-color: #2f3439;
-  color: white;
-} */
+    th, td {
+        text-align: left;
+        padding: 8px;
+    }
+    tbody>tr:nth-child(even){background-color: #f2f2f2 !important}
+    tbody>tr:nth-child(odd){background-color: #fff !important}
   </style>
 </head>
 
@@ -36,8 +30,9 @@ tbody>tr:nth-child(odd){background-color: #fff !important}
   <div class="container">
     <div class="jumbotron">
       <h1>
-        Golf Course Report
+        Golf Course Stats
       </h1>
+      <p></p>
       <p></p>
     </div>
 
@@ -45,22 +40,23 @@ tbody>tr:nth-child(odd){background-color: #fff !important}
       <div class="col-md-12">
         <div class="panel panel-default">
           <div class="panel-body">
-            Course per State
+            <h3>Courses per State</h3>
           </div>
         </div>
         <div id="plot"></div>
+        <p></p>
       </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              Median Difficulty
-            </div>
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+              <h3>Median Difficulty</h3>
           </div>
-          <div id="plot2"></div>
-        </div>
-      </div>
+         </div>
+        <div id="plot2"></div>
+       </div>
+     </div>
   </div>
   <script src="static/js/plots.js"></script>
 </body>
