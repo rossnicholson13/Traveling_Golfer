@@ -88,6 +88,8 @@ function buildSecondPlot() {
       bogeys_state[state] = median(bogeys_state[state]);
     }
 
+    delete bogeys_state["undefined"];
+
     var trace1 = {
       type: 'scatter',
       x: Object.keys(bogeys_state),
@@ -112,3 +114,7 @@ function buildSecondPlot() {
 }
 
 buildSecondPlot();
+
+
+// Initialize the dashboard
+init();
